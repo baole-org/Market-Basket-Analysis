@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "PINK REGENCY TEACUP AND SAUCER", "label": "PINK REGENCY TEACUP AND SAUCER", "shape": "dot", "size": 10}, {"id": "GREEN REGENCY TEACUP AND SAUCER", "label": "GREEN REGENCY TEACUP AND SAUCER", "shape": "dot", "size": 10}, {"id": "ROSES REGENCY TEACUP AND SAUCER ", "label": "ROSES REGENCY TEACUP AND SAUCER ", "shape": "dot", "size": 10}, {"id": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "label": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "shape": "dot", "size": 10}, {"id": "WOODEN HEART CHRISTMAS SCANDINAVIAN", "label": "WOODEN HEART CHRISTMAS SCANDINAVIAN", "shape": "dot", "size": 10}, {"id": "GARDENERS KNEELING PAD CUP OF TEA ", "label": "GARDENERS KNEELING PAD CUP OF TEA ", "shape": "dot", "size": 10}, {"id": "GARDENERS KNEELING PAD KEEP CALM ", "label": "GARDENERS KNEELING PAD KEEP CALM ", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE GREEN", "label": "ALARM CLOCK BAKELIKE GREEN", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE RED ", "label": "ALARM CLOCK BAKELIKE RED ", "shape": "dot", "size": 10}, {"id": "WOODEN PICTURE FRAME WHITE FINISH", "label": "WOODEN PICTURE FRAME WHITE FINISH", "shape": "dot", "size": 10}, {"id": "WOODEN FRAME ANTIQUE WHITE ", "label": "WOODEN FRAME ANTIQUE WHITE ", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "label": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "label": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG CARS BLUE", "label": "LUNCH BAG CARS BLUE", "shape": "dot", "size": 10}, {"id": "LUNCH BAG PINK POLKADOT", "label": "LUNCH BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SUKI DESIGN ", "label": "LUNCH BAG SUKI DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SPACEBOY DESIGN ", "label": "LUNCH BAG SPACEBOY DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG RED RETROSPOT", "label": "LUNCH BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG  BLACK SKULL.", "label": "LUNCH BAG  BLACK SKULL.", "shape": "dot", "size": 10}, {"id": "LUNCH BAG WOODLAND", "label": "LUNCH BAG WOODLAND", "shape": "dot", "size": 10}, {"id": "HEART OF WICKER SMALL", "label": "HEART OF WICKER SMALL", "shape": "dot", "size": 10}, {"id": "HEART OF WICKER LARGE", "label": "HEART OF WICKER LARGE", "shape": "dot", "size": 10}, {"id": "JUMBO BAG PINK POLKADOT", "label": "JUMBO BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "JUMBO BAG RED RETROSPOT", "label": "JUMBO BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "JUMBO BAG VINTAGE DOILY ", "label": "JUMBO BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG VINTAGE DOILY ", "label": "LUNCH BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "RED HANGING HEART T-LIGHT HOLDER", "label": "RED HANGING HEART T-LIGHT HOLDER", "shape": "dot", "size": 10}, {"id": "CREAM HANGING HEART T-LIGHT HOLDER", "label": "CREAM HANGING HEART T-LIGHT HOLDER", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "PINK REGENCY TEACUP AND SAUCER", "title": "25.01612347766194", "to": "GREEN REGENCY TEACUP AND SAUCER", "value": 25.01612347766194, "weight": 1}, {"from": "GREEN REGENCY TEACUP AND SAUCER", "title": "19.926739926739923", "to": "ROSES REGENCY TEACUP AND SAUCER ", "value": 19.926739926739923, "weight": 1}, {"from": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "title": "23.577592275973046", "to": "WOODEN HEART CHRISTMAS SCANDINAVIAN", "value": 23.577592275973046, "weight": 1}, {"from": "GARDENERS KNEELING PAD CUP OF TEA ", "title": "16.66969624491749", "to": "GARDENERS KNEELING PAD KEEP CALM ", "value": 16.66969624491749, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE GREEN", "title": "15.917792792792794", "to": "ALARM CLOCK BAKELIKE RED ", "value": 15.917792792792794, "weight": 1}, {"from": "WOODEN PICTURE FRAME WHITE FINISH", "title": "11.90581682384961", "to": "WOODEN FRAME ANTIQUE WHITE ", "value": 11.90581682384961, "weight": 1}, {"from": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "title": "10.51909647503089", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 10.51909647503089, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "9.865295994328253", "to": "LUNCH BAG PINK POLKADOT", "value": 9.865295994328253, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "8.687782805429865", "to": "LUNCH BAG SUKI DESIGN ", "value": 8.687782805429865, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "7.800972261938805", "to": "LUNCH BAG SPACEBOY DESIGN ", "value": 7.800972261938805, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "7.61632166283329", "to": "LUNCH BAG RED RETROSPOT", "value": 7.61632166283329, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "7.6062424969988", "to": "LUNCH BAG  BLACK SKULL.", "value": 7.6062424969988, "weight": 1}, {"from": "LUNCH BAG PINK POLKADOT", "title": "9.231770127405802", "to": "LUNCH BAG  BLACK SKULL.", "value": 9.231770127405802, "weight": 1}, {"from": "LUNCH BAG PINK POLKADOT", "title": "8.78019504876219", "to": "LUNCH BAG RED RETROSPOT", "value": 8.78019504876219, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "9.612925625153482", "to": "LUNCH BAG WOODLAND", "value": 9.612925625153482, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "8.152197682046797", "to": "LUNCH BAG SUKI DESIGN ", "value": 8.152197682046797, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "7.15853925213208", "to": "LUNCH BAG  BLACK SKULL.", "value": 7.15853925213208, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "6.8166335264113425", "to": "LUNCH BAG RED RETROSPOT", "value": 6.8166335264113425, "weight": 1}, {"from": "LUNCH BAG  BLACK SKULL.", "title": "8.573405832921404", "to": "LUNCH BAG SUKI DESIGN ", "value": 8.573405832921404, "weight": 1}, {"from": "LUNCH BAG  BLACK SKULL.", "title": "7.842094977525894", "to": "LUNCH BAG RED RETROSPOT", "value": 7.842094977525894, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "7.55859553123575", "to": "LUNCH BAG SUKI DESIGN ", "value": 7.55859553123575, "weight": 1}, {"from": "HEART OF WICKER SMALL", "title": "8.316569028407207", "to": "HEART OF WICKER LARGE", "value": 8.316569028407207, "weight": 1}, {"from": "JUMBO BAG PINK POLKADOT", "title": "8.18644480124556", "to": "JUMBO BAG RED RETROSPOT", "value": 8.18644480124556, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "5.209027007029227", "to": "JUMBO BAG VINTAGE DOILY ", "value": 5.209027007029227, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "7.802083706276181", "to": "LUNCH BAG VINTAGE DOILY ", "value": 7.802083706276181, "weight": 1}, {"from": "RED HANGING HEART T-LIGHT HOLDER", "title": "5.636754595838759", "to": "CREAM HANGING HEART T-LIGHT HOLDER", "value": 5.636754595838759, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

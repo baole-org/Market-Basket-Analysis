@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "PINK REGENCY TEACUP AND SAUCER", "label": "PINK REGENCY TEACUP AND SAUCER", "shape": "dot", "size": 10}, {"id": "GREEN REGENCY TEACUP AND SAUCER", "label": "GREEN REGENCY TEACUP AND SAUCER", "shape": "dot", "size": 10}, {"id": "ROSES REGENCY TEACUP AND SAUCER ", "label": "ROSES REGENCY TEACUP AND SAUCER ", "shape": "dot", "size": 10}, {"id": "REGENCY CAKESTAND 3 TIER", "label": "REGENCY CAKESTAND 3 TIER", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE RED ", "label": "ALARM CLOCK BAKELIKE RED ", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE ORANGE", "label": "ALARM CLOCK BAKELIKE ORANGE", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE IVORY", "label": "ALARM CLOCK BAKELIKE IVORY", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE GREEN", "label": "ALARM CLOCK BAKELIKE GREEN", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE PINK", "label": "ALARM CLOCK BAKELIKE PINK", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "label": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "label": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "shape": "dot", "size": 10}, {"id": "ROUND SNACK BOXES SET OF4 WOODLAND ", "label": "ROUND SNACK BOXES SET OF4 WOODLAND ", "shape": "dot", "size": 10}, {"id": "ROUND SNACK BOXES SET OF 4 FRUITS ", "label": "ROUND SNACK BOXES SET OF 4 FRUITS ", "shape": "dot", "size": 10}, {"id": "SPACEBOY LUNCH BOX ", "label": "SPACEBOY LUNCH BOX ", "shape": "dot", "size": 10}, {"id": "DOLLY GIRL LUNCH BOX", "label": "DOLLY GIRL LUNCH BOX", "shape": "dot", "size": 10}, {"id": "PLASTERS IN TIN WOODLAND ANIMALS", "label": "PLASTERS IN TIN WOODLAND ANIMALS", "shape": "dot", "size": 10}, {"id": "PLASTERS IN TIN CIRCUS PARADE ", "label": "PLASTERS IN TIN CIRCUS PARADE ", "shape": "dot", "size": 10}, {"id": "PLASTERS IN TIN STRONGMAN", "label": "PLASTERS IN TIN STRONGMAN", "shape": "dot", "size": 10}, {"id": "PLASTERS IN TIN SPACEBOY", "label": "PLASTERS IN TIN SPACEBOY", "shape": "dot", "size": 10}, {"id": "LUNCH BAG ALPHABET DESIGN", "label": "LUNCH BAG ALPHABET DESIGN", "shape": "dot", "size": 10}, {"id": "LUNCH BAG APPLE DESIGN", "label": "LUNCH BAG APPLE DESIGN", "shape": "dot", "size": 10}, {"id": "LUNCH BAG VINTAGE DOILY ", "label": "LUNCH BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SPACEBOY DESIGN ", "label": "LUNCH BAG SPACEBOY DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SUKI DESIGN ", "label": "LUNCH BAG SUKI DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG RED RETROSPOT", "label": "LUNCH BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG DOLLY GIRL DESIGN", "label": "LUNCH BAG DOLLY GIRL DESIGN", "shape": "dot", "size": 10}, {"id": "LUNCH BAG WOODLAND", "label": "LUNCH BAG WOODLAND", "shape": "dot", "size": 10}, {"id": "LUNCH BAG CARS BLUE", "label": "LUNCH BAG CARS BLUE", "shape": "dot", "size": 10}, {"id": "JUMBO BAG VINTAGE LEAF", "label": "JUMBO BAG VINTAGE LEAF", "shape": "dot", "size": 10}, {"id": "JUMBO BAG VINTAGE DOILY ", "label": "JUMBO BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "JUMBO BAG RED RETROSPOT", "label": "JUMBO BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "60 TEATIME FAIRY CAKE CASES", "label": "60 TEATIME FAIRY CAKE CASES", "shape": "dot", "size": 10}, {"id": "PACK OF 60 PINK PAISLEY CAKE CASES", "label": "PACK OF 60 PINK PAISLEY CAKE CASES", "shape": "dot", "size": 10}, {"id": "PACK OF 72 RETROSPOT CAKE CASES", "label": "PACK OF 72 RETROSPOT CAKE CASES", "shape": "dot", "size": 10}, {"id": "LUNCH BAG  BLACK SKULL.", "label": "LUNCH BAG  BLACK SKULL.", "shape": "dot", "size": 10}, {"id": "LUNCH BAG PINK POLKADOT", "label": "LUNCH BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "JUMBO  BAG BAROQUE BLACK WHITE", "label": "JUMBO  BAG BAROQUE BLACK WHITE", "shape": "dot", "size": 10}, {"id": "JUMBO BAG STRAWBERRY", "label": "JUMBO BAG STRAWBERRY", "shape": "dot", "size": 10}, {"id": "JUMBO BAG PINK POLKADOT", "label": "JUMBO BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "JUMBO STORAGE BAG SUKI", "label": "JUMBO STORAGE BAG SUKI", "shape": "dot", "size": 10}, {"id": "JUMBO BAG APPLES", "label": "JUMBO BAG APPLES", "shape": "dot", "size": 10}, {"id": "JAM MAKING SET PRINTED", "label": "JAM MAKING SET PRINTED", "shape": "dot", "size": 10}, {"id": "JAM MAKING SET WITH JARS", "label": "JAM MAKING SET WITH JARS", "shape": "dot", "size": 10}, {"id": "SET OF 3 CAKE TINS PANTRY DESIGN ", "label": "SET OF 3 CAKE TINS PANTRY DESIGN ", "shape": "dot", "size": 10}, {"id": "SET OF 3 REGENCY CAKE TINS", "label": "SET OF 3 REGENCY CAKE TINS", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "PINK REGENCY TEACUP AND SAUCER", "title": "9.724121613628297", "to": "GREEN REGENCY TEACUP AND SAUCER", "value": 9.724121613628297, "weight": 1}, {"from": "PINK REGENCY TEACUP AND SAUCER", "title": "8.576056640205966", "to": "ROSES REGENCY TEACUP AND SAUCER ", "value": 8.576056640205966, "weight": 1}, {"from": "PINK REGENCY TEACUP AND SAUCER", "title": "3.5471676499226765", "to": "REGENCY CAKESTAND 3 TIER", "value": 3.5471676499226765, "weight": 1}, {"from": "GREEN REGENCY TEACUP AND SAUCER", "title": "8.204657056866782", "to": "ROSES REGENCY TEACUP AND SAUCER ", "value": 8.204657056866782, "weight": 1}, {"from": "GREEN REGENCY TEACUP AND SAUCER", "title": "3.285575337252083", "to": "REGENCY CAKESTAND 3 TIER", "value": 3.285575337252083, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE RED ", "title": "9.396952104499274", "to": "ALARM CLOCK BAKELIKE ORANGE", "value": 9.396952104499274, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE RED ", "title": "9.27066895368782", "to": "ALARM CLOCK BAKELIKE IVORY", "value": 9.27066895368782, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE RED ", "title": "8.669052266319671", "to": "ALARM CLOCK BAKELIKE GREEN", "value": 8.669052266319671, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE RED ", "title": "8.424853610930384", "to": "ALARM CLOCK BAKELIKE PINK", "value": 8.424853610930384, "weight": 1}, {"from": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "title": "9.377435575109994", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 9.377435575109994, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE PINK", "title": "9.074646584753602", "to": "ALARM CLOCK BAKELIKE GREEN", "value": 9.074646584753602, "weight": 1}, {"from": "ROSES REGENCY TEACUP AND SAUCER ", "title": "3.3247181532326096", "to": "REGENCY CAKESTAND 3 TIER", "value": 3.3247181532326096, "weight": 1}, {"from": "ROUND SNACK BOXES SET OF4 WOODLAND ", "title": "8.110444177671068", "to": "ROUND SNACK BOXES SET OF 4 FRUITS ", "value": 8.110444177671068, "weight": 1}, {"from": "SPACEBOY LUNCH BOX ", "title": "7.864126984126984", "to": "DOLLY GIRL LUNCH BOX", "value": 7.864126984126984, "weight": 1}, {"from": "PLASTERS IN TIN WOODLAND ANIMALS", "title": "7.6646039603960405", "to": "PLASTERS IN TIN CIRCUS PARADE ", "value": 7.6646039603960405, "weight": 1}, {"from": "PLASTERS IN TIN WOODLAND ANIMALS", "title": "6.828465346534654", "to": "PLASTERS IN TIN STRONGMAN", "value": 6.828465346534654, "weight": 1}, {"from": "PLASTERS IN TIN WOODLAND ANIMALS", "title": "6.6648730090400345", "to": "PLASTERS IN TIN SPACEBOY", "value": 6.6648730090400345, "weight": 1}, {"from": "PLASTERS IN TIN CIRCUS PARADE ", "title": "7.496467391304348", "to": "PLASTERS IN TIN SPACEBOY", "value": 7.496467391304348, "weight": 1}, {"from": "LUNCH BAG ALPHABET DESIGN", "title": "7.114835164835164", "to": "LUNCH BAG APPLE DESIGN", "value": 7.114835164835164, "weight": 1}, {"from": "LUNCH BAG APPLE DESIGN", "title": "5.012464387464387", "to": "LUNCH BAG VINTAGE DOILY ", "value": 5.012464387464387, "weight": 1}, {"from": "LUNCH BAG APPLE DESIGN", "title": "4.3687584345479085", "to": "LUNCH BAG SPACEBOY DESIGN ", "value": 4.3687584345479085, "weight": 1}, {"from": "LUNCH BAG APPLE DESIGN", "title": "4.294977749523204", "to": "LUNCH BAG SUKI DESIGN ", "value": 4.294977749523204, "weight": 1}, {"from": "LUNCH BAG APPLE DESIGN", "title": "3.4753086419753085", "to": "LUNCH BAG RED RETROSPOT", "value": 3.4753086419753085, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "6.925388183101432", "to": "LUNCH BAG DOLLY GIRL DESIGN", "value": 6.925388183101432, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "5.432456140350877", "to": "LUNCH BAG WOODLAND", "value": 5.432456140350877, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "5.142670726402783", "to": "LUNCH BAG SUKI DESIGN ", "value": 5.142670726402783, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "4.267922893653887", "to": "LUNCH BAG RED RETROSPOT", "value": 4.267922893653887, "weight": 1}, {"from": "LUNCH BAG SPACEBOY DESIGN ", "title": "4.195621797857475", "to": "LUNCH BAG CARS BLUE", "value": 4.195621797857475, "weight": 1}, {"from": "LUNCH BAG DOLLY GIRL DESIGN", "title": "5.562078464899782", "to": "LUNCH BAG SUKI DESIGN ", "value": 5.562078464899782, "weight": 1}, {"from": "LUNCH BAG DOLLY GIRL DESIGN", "title": "4.713637008656165", "to": "LUNCH BAG RED RETROSPOT", "value": 4.713637008656165, "weight": 1}, {"from": "JUMBO BAG VINTAGE LEAF", "title": "6.370771638377271", "to": "JUMBO BAG VINTAGE DOILY ", "value": 6.370771638377271, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "4.366413421968977", "to": "LUNCH BAG VINTAGE DOILY ", "value": 4.366413421968977, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "2.7428205128205123", "to": "JUMBO BAG RED RETROSPOT", "value": 2.7428205128205123, "weight": 1}, {"from": "60 TEATIME FAIRY CAKE CASES", "title": "5.994676131322095", "to": "PACK OF 60 PINK PAISLEY CAKE CASES", "value": 5.994676131322095, "weight": 1}, {"from": "60 TEATIME FAIRY CAKE CASES", "title": "5.0267857142857135", "to": "PACK OF 72 RETROSPOT CAKE CASES", "value": 5.0267857142857135, "weight": 1}, {"from": "PACK OF 60 PINK PAISLEY CAKE CASES", "title": "5.259001358695652", "to": "PACK OF 72 RETROSPOT CAKE CASES", "value": 5.259001358695652, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "5.682293571271849", "to": "LUNCH BAG SUKI DESIGN ", "value": 5.682293571271849, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "5.425172074729597", "to": "LUNCH BAG  BLACK SKULL.", "value": 5.425172074729597, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "5.2812389380530975", "to": "LUNCH BAG WOODLAND", "value": 5.2812389380530975, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "4.630016983999285", "to": "LUNCH BAG PINK POLKADOT", "value": 4.630016983999285, "weight": 1}, {"from": "LUNCH BAG CARS BLUE", "title": "4.059652572926909", "to": "LUNCH BAG RED RETROSPOT", "value": 4.059652572926909, "weight": 1}, {"from": "LUNCH BAG SUKI DESIGN ", "title": "5.2732782369146", "to": "LUNCH BAG  BLACK SKULL.", "value": 5.2732782369146, "weight": 1}, {"from": "LUNCH BAG SUKI DESIGN ", "title": "4.793889306286", "to": "LUNCH BAG PINK POLKADOT", "value": 4.793889306286, "weight": 1}, {"from": "LUNCH BAG SUKI DESIGN ", "title": "4.745950413223141", "to": "LUNCH BAG WOODLAND", "value": 4.745950413223141, "weight": 1}, {"from": "LUNCH BAG SUKI DESIGN ", "title": "4.423120089786755", "to": "LUNCH BAG RED RETROSPOT", "value": 4.423120089786755, "weight": 1}, {"from": "LUNCH BAG WOODLAND", "title": "4.656913580246913", "to": "LUNCH BAG RED RETROSPOT", "value": 4.656913580246913, "weight": 1}, {"from": "LUNCH BAG  BLACK SKULL.", "title": "5.097119341563785", "to": "LUNCH BAG RED RETROSPOT", "value": 5.097119341563785, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "4.493328345180196", "to": "LUNCH BAG PINK POLKADOT", "value": 4.493328345180196, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "3.0248056698673977", "to": "LUNCH BAG VINTAGE DOILY ", "value": 3.0248056698673977, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "2.2241975308641972", "to": "JUMBO BAG RED RETROSPOT", "value": 2.2241975308641972, "weight": 1}, {"from": "JUMBO  BAG BAROQUE BLACK WHITE", "title": "4.330769230769231", "to": "JUMBO BAG RED RETROSPOT", "value": 4.330769230769231, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "4.2225", "to": "JUMBO BAG STRAWBERRY", "value": 4.2225, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "4.056021505376344", "to": "JUMBO BAG PINK POLKADOT", "value": 4.056021505376344, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "3.709176470588235", "to": "JUMBO STORAGE BAG SUKI", "value": 3.709176470588235, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "3.0652222222222223", "to": "JUMBO BAG APPLES", "value": 3.0652222222222223, "weight": 1}, {"from": "JAM MAKING SET PRINTED", "title": "4.099188350441632", "to": "JAM MAKING SET WITH JARS", "value": 4.099188350441632, "weight": 1}, {"from": "JAM MAKING SET PRINTED", "title": "3.135351089588378", "to": "SET OF 3 CAKE TINS PANTRY DESIGN ", "value": 3.135351089588378, "weight": 1}, {"from": "JAM MAKING SET PRINTED", "title": "1.9861952603727282", "to": "REGENCY CAKESTAND 3 TIER", "value": 1.9861952603727282, "weight": 1}, {"from": "JAM MAKING SET WITH JARS", "title": "2.718712273641851", "to": "SET OF 3 CAKE TINS PANTRY DESIGN ", "value": 2.718712273641851, "weight": 1}, {"from": "JAM MAKING SET WITH JARS", "title": "1.7940220508571791", "to": "REGENCY CAKESTAND 3 TIER", "value": 1.7940220508571791, "weight": 1}, {"from": "REGENCY CAKESTAND 3 TIER", "title": "2.5995013389971375", "to": "SET OF 3 REGENCY CAKE TINS", "value": 2.5995013389971375, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
