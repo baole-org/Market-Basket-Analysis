@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "PINK VINTAGE SPOT BEAKER", "label": "PINK VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "GREEN VINTAGE SPOT BEAKER", "label": "GREEN VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "BLUE VINTAGE SPOT BEAKER", "label": "BLUE VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "label": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "shape": "dot", "size": 10}, {"id": "TEA FOR ONE POLKADOT", "label": "TEA FOR ONE POLKADOT", "shape": "dot", "size": 10}, {"id": "LAUREL HEART ANTIQUE SILVER", "label": "LAUREL HEART ANTIQUE SILVER", "shape": "dot", "size": 10}, {"id": "BEADED CRYSTAL HEART GREEN ON STICK", "label": "BEADED CRYSTAL HEART GREEN ON STICK", "shape": "dot", "size": 10}, {"id": "PHOTO CUBE", "label": "PHOTO CUBE", "shape": "dot", "size": 10}, {"id": "FEATHER PEN,COAL BLACK", "label": "FEATHER PEN,COAL BLACK", "shape": "dot", "size": 10}, {"id": "BOHEMIAN COLLAGE STATIONERY SET", "label": "BOHEMIAN COLLAGE STATIONERY SET", "shape": "dot", "size": 10}, {"id": "6 ROCKET BALLOONS ", "label": "6 ROCKET BALLOONS ", "shape": "dot", "size": 10}, {"id": "CHRISTMAS RETROSPOT ANGEL WOOD", "label": "CHRISTMAS RETROSPOT ANGEL WOOD", "shape": "dot", "size": 10}, {"id": "TRADITIONAL CHRISTMAS RIBBONS", "label": "TRADITIONAL CHRISTMAS RIBBONS", "shape": "dot", "size": 10}, {"id": "3D VINTAGE CHRISTMAS STICKERS ", "label": "3D VINTAGE CHRISTMAS STICKERS ", "shape": "dot", "size": 10}, {"id": "CHRISTMAS STAR WISH LIST CHALKBOARD", "label": "CHRISTMAS STAR WISH LIST CHALKBOARD", "shape": "dot", "size": 10}, {"id": "3D TRADITIONAL CHRISTMAS STICKERS", "label": "3D TRADITIONAL CHRISTMAS STICKERS", "shape": "dot", "size": 10}, {"id": "HEART WOODEN CHRISTMAS DECORATION", "label": "HEART WOODEN CHRISTMAS DECORATION", "shape": "dot", "size": 10}, {"id": "DOORSTOP FOOTBALL DESIGN", "label": "DOORSTOP FOOTBALL DESIGN", "shape": "dot", "size": 10}, {"id": "VINTAGE SNAP CARDS", "label": "VINTAGE SNAP CARDS", "shape": "dot", "size": 10}, {"id": "PARTY TIME PENCIL ERASERS", "label": "PARTY TIME PENCIL ERASERS", "shape": "dot", "size": 10}, {"id": "SET OF 2 TEA TOWELS PING MICROWAVE", "label": "SET OF 2 TEA TOWELS PING MICROWAVE", "shape": "dot", "size": 10}, {"id": "S/4 IVORY MINI ROSE CANDLE IN BOWL", "label": "S/4 IVORY MINI ROSE CANDLE IN BOWL", "shape": "dot", "size": 10}, {"id": "FLOWERS  STICKERS", "label": "FLOWERS  STICKERS", "shape": "dot", "size": 10}, {"id": "JINGLE BELLS TREE DECORATION", "label": "JINGLE BELLS TREE DECORATION", "shape": "dot", "size": 10}, {"id": "TEA TIME TEAPOT IN GIFT BOX", "label": "TEA TIME TEAPOT IN GIFT BOX", "shape": "dot", "size": 10}, {"id": "FEATHER PEN,LIGHT PINK", "label": "FEATHER PEN,LIGHT PINK", "shape": "dot", "size": 10}, {"id": "TRAVEL CARD WALLET KEEP CALM", "label": "TRAVEL CARD WALLET KEEP CALM", "shape": "dot", "size": 10}, {"id": "COLOURING PENCILS BROWN TUBE", "label": "COLOURING PENCILS BROWN TUBE", "shape": "dot", "size": 10}, {"id": "FILIGREE HEART BIRD WHITE ", "label": "FILIGREE HEART BIRD WHITE ", "shape": "dot", "size": 10}, {"id": "BLUE FLY SWAT", "label": "BLUE FLY SWAT", "shape": "dot", "size": 10}, {"id": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "label": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "shape": "dot", "size": 10}, {"id": "SMALL HANGING IVORY/RED WOOD BIRD", "label": "SMALL HANGING IVORY/RED WOOD BIRD", "shape": "dot", "size": 10}, {"id": "CALENDAR FAMILY FAVOURITES", "label": "CALENDAR FAMILY FAVOURITES", "shape": "dot", "size": 10}, {"id": "RIBBON REEL CHRISTMAS PRESENT ", "label": "RIBBON REEL CHRISTMAS PRESENT ", "shape": "dot", "size": 10}, {"id": "PACK 3 BOXES BIRD PANETTONE ", "label": "PACK 3 BOXES BIRD PANETTONE ", "shape": "dot", "size": 10}, {"id": "CHRISTMAS TREE HANGING GOLD", "label": "CHRISTMAS TREE HANGING GOLD", "shape": "dot", "size": 10}, {"id": "SET/6 PINK BIRD T-LIGHT CANDLES", "label": "SET/6 PINK BIRD T-LIGHT CANDLES", "shape": "dot", "size": 10}, {"id": "SMALL CHOCOLATES PINK BOWL", "label": "SMALL CHOCOLATES PINK BOWL", "shape": "dot", "size": 10}, {"id": "POLKADOT RAIN HAT ", "label": "POLKADOT RAIN HAT ", "shape": "dot", "size": 10}, {"id": "VINTAGE PAISLEY STATIONERY SET", "label": "VINTAGE PAISLEY STATIONERY SET", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "PINK VINTAGE SPOT BEAKER", "title": "23.333333333333332", "to": "GREEN VINTAGE SPOT BEAKER", "value": 23.333333333333332, "weight": 1}, {"from": "PINK VINTAGE SPOT BEAKER", "title": "23.333333333333332", "to": "BLUE VINTAGE SPOT BEAKER", "value": 23.333333333333332, "weight": 1}, {"from": "GREEN VINTAGE SPOT BEAKER", "title": "23.333333333333332", "to": "BLUE VINTAGE SPOT BEAKER", "value": 23.333333333333332, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "21.0", "to": "TEA FOR ONE POLKADOT", "value": 21.0, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "LAUREL HEART ANTIQUE SILVER", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "BEADED CRYSTAL HEART GREEN ON STICK", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "FEATHER PEN,COAL BLACK", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "BOHEMIAN COLLAGE STATIONERY SET", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "6 ROCKET BALLOONS ", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "19.09090909090909", "to": "CHRISTMAS RETROSPOT ANGEL WOOD", "value": 19.09090909090909, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "TRADITIONAL CHRISTMAS RIBBONS", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "CHRISTMAS STAR WISH LIST CHALKBOARD", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "DOORSTOP FOOTBALL DESIGN", "value": 18.900000000000002, "weight": 1}, {"from": "FELTCRAFT HAIRBANDS PINK AND WHITE ", "title": "18.900000000000002", "to": "VINTAGE SNAP CARDS", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "FEATHER PEN,COAL BLACK", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "BEADED CRYSTAL HEART GREEN ON STICK", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "LAUREL HEART ANTIQUE SILVER", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "BOHEMIAN COLLAGE STATIONERY SET", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "CHRISTMAS RETROSPOT ANGEL WOOD", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "19.09090909090909", "to": "6 ROCKET BALLOONS ", "value": 19.09090909090909, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "TRADITIONAL CHRISTMAS RIBBONS", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "DOORSTOP FOOTBALL DESIGN", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "CHRISTMAS STAR WISH LIST CHALKBOARD", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "TEA FOR ONE POLKADOT", "title": "18.900000000000002", "to": "VINTAGE SNAP CARDS", "value": 18.900000000000002, "weight": 1}, {"from": "PARTY TIME PENCIL ERASERS", "title": "21.0", "to": "SET OF 2 TEA TOWELS PING MICROWAVE", "value": 21.0, "weight": 1}, {"from": "PARTY TIME PENCIL ERASERS", "title": "21.0", "to": "S/4 IVORY MINI ROSE CANDLE IN BOWL", "value": 21.0, "weight": 1}, {"from": "PARTY TIME PENCIL ERASERS", "title": "18.900000000000002", "to": "FLOWERS  STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "PARTY TIME PENCIL ERASERS", "title": "18.900000000000002", "to": "DOORSTOP FOOTBALL DESIGN", "value": 18.900000000000002, "weight": 1}, {"from": "SET OF 2 TEA TOWELS PING MICROWAVE", "title": "19.09090909090909", "to": "JINGLE BELLS TREE DECORATION", "value": 19.09090909090909, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "21.0", "to": "VINTAGE SNAP CARDS", "value": 21.0, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "21.0", "to": "CHRISTMAS STAR WISH LIST CHALKBOARD", "value": 21.0, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "19.09090909090909", "to": "BOHEMIAN COLLAGE STATIONERY SET", "value": 19.09090909090909, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "19.09090909090909", "to": "TEA TIME TEAPOT IN GIFT BOX", "value": 19.09090909090909, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "19.09090909090909", "to": "FEATHER PEN,LIGHT PINK", "value": 19.09090909090909, "weight": 1}, {"from": "TRADITIONAL CHRISTMAS RIBBONS", "title": "19.09090909090909", "to": "TRAVEL CARD WALLET KEEP CALM", "value": 19.09090909090909, "weight": 1}, {"from": "VINTAGE SNAP CARDS", "title": "21.0", "to": "CHRISTMAS STAR WISH LIST CHALKBOARD", "value": 21.0, "weight": 1}, {"from": "VINTAGE SNAP CARDS", "title": "19.09090909090909", "to": "BOHEMIAN COLLAGE STATIONERY SET", "value": 19.09090909090909, "weight": 1}, {"from": "VINTAGE SNAP CARDS", "title": "19.09090909090909", "to": "TRAVEL CARD WALLET KEEP CALM", "value": 19.09090909090909, "weight": 1}, {"from": "VINTAGE SNAP CARDS", "title": "19.09090909090909", "to": "FEATHER PEN,LIGHT PINK", "value": 19.09090909090909, "weight": 1}, {"from": "VINTAGE SNAP CARDS", "title": "19.09090909090909", "to": "TEA TIME TEAPOT IN GIFT BOX", "value": 19.09090909090909, "weight": 1}, {"from": "CHRISTMAS STAR WISH LIST CHALKBOARD", "title": "19.09090909090909", "to": "TEA TIME TEAPOT IN GIFT BOX", "value": 19.09090909090909, "weight": 1}, {"from": "CHRISTMAS STAR WISH LIST CHALKBOARD", "title": "19.09090909090909", "to": "FEATHER PEN,LIGHT PINK", "value": 19.09090909090909, "weight": 1}, {"from": "CHRISTMAS STAR WISH LIST CHALKBOARD", "title": "19.09090909090909", "to": "TRAVEL CARD WALLET KEEP CALM", "value": 19.09090909090909, "weight": 1}, {"from": "CHRISTMAS STAR WISH LIST CHALKBOARD", "title": "19.09090909090909", "to": "BOHEMIAN COLLAGE STATIONERY SET", "value": 19.09090909090909, "weight": 1}, {"from": "S/4 IVORY MINI ROSE CANDLE IN BOWL", "title": "19.09090909090909", "to": "COLOURING PENCILS BROWN TUBE", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "FILIGREE HEART BIRD WHITE ", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "BLUE FLY SWAT", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "DOORSTOP FOOTBALL DESIGN", "value": 19.09090909090909, "weight": 1}, {"from": "LAUREL HEART ANTIQUE SILVER", "title": "19.09090909090909", "to": "6 ROCKET BALLOONS ", "value": 19.09090909090909, "weight": 1}, {"from": "TEA TIME TEAPOT IN GIFT BOX", "title": "19.09090909090909", "to": "BLUE FLY SWAT", "value": 19.09090909090909, "weight": 1}, {"from": "TEA TIME TEAPOT IN GIFT BOX", "title": "19.09090909090909", "to": "FEATHER PEN,LIGHT PINK", "value": 19.09090909090909, "weight": 1}, {"from": "FEATHER PEN,LIGHT PINK", "title": "19.09090909090909", "to": "BLUE FLY SWAT", "value": 19.09090909090909, "weight": 1}, {"from": "FILIGREE HEART BIRD WHITE ", "title": "19.09090909090909", "to": "6 ROCKET BALLOONS ", "value": 19.09090909090909, "weight": 1}, {"from": "FILIGREE HEART BIRD WHITE ", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "FILIGREE HEART BIRD WHITE ", "title": "18.900000000000002", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 18.900000000000002, "weight": 1}, {"from": "FILIGREE HEART BIRD WHITE ", "title": "18.900000000000002", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "BLUE FLY SWAT", "title": "19.09090909090909", "to": "6 ROCKET BALLOONS ", "value": 19.09090909090909, "weight": 1}, {"from": "BLUE FLY SWAT", "title": "19.09090909090909", "to": "WOODEN STAR CHRISTMAS SCANDINAVIAN", "value": 19.09090909090909, "weight": 1}, {"from": "BLUE FLY SWAT", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "6 ROCKET BALLOONS ", "title": "19.09090909090909", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 19.09090909090909, "weight": 1}, {"from": "6 ROCKET BALLOONS ", "title": "19.09090909090909", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 19.09090909090909, "weight": 1}, {"from": "6 ROCKET BALLOONS ", "title": "19.09090909090909", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 19.09090909090909, "weight": 1}, {"from": "6 ROCKET BALLOONS ", "title": "19.09090909090909", "to": "DOORSTOP FOOTBALL DESIGN", "value": 19.09090909090909, "weight": 1}, {"from": "6 ROCKET BALLOONS ", "title": "19.09090909090909", "to": "PHOTO CUBE", "value": 19.09090909090909, "weight": 1}, {"from": "PHOTO CUBE", "title": "19.09090909090909", "to": "3D TRADITIONAL CHRISTMAS STICKERS", "value": 19.09090909090909, "weight": 1}, {"from": "PHOTO CUBE", "title": "19.09090909090909", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 19.09090909090909, "weight": 1}, {"from": "PHOTO CUBE", "title": "19.09090909090909", "to": "DOORSTOP FOOTBALL DESIGN", "value": 19.09090909090909, "weight": 1}, {"from": "PHOTO CUBE", "title": "19.09090909090909", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 19.09090909090909, "weight": 1}, {"from": "BOHEMIAN COLLAGE STATIONERY SET", "title": "19.09090909090909", "to": "SMALL HANGING IVORY/RED WOOD BIRD", "value": 19.09090909090909, "weight": 1}, {"from": "3D TRADITIONAL CHRISTMAS STICKERS", "title": "18.900000000000002", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 18.900000000000002, "weight": 1}, {"from": "3D TRADITIONAL CHRISTMAS STICKERS", "title": "18.900000000000002", "to": "DOORSTOP FOOTBALL DESIGN", "value": 18.900000000000002, "weight": 1}, {"from": "3D TRADITIONAL CHRISTMAS STICKERS", "title": "18.900000000000002", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 18.900000000000002, "weight": 1}, {"from": "3D TRADITIONAL CHRISTMAS STICKERS", "title": "18.900000000000002", "to": "FLOWERS  STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "3D TRADITIONAL CHRISTMAS STICKERS", "title": "18.900000000000002", "to": "CALENDAR FAMILY FAVOURITES", "value": 18.900000000000002, "weight": 1}, {"from": "RIBBON REEL CHRISTMAS PRESENT ", "title": "19.09090909090909", "to": "HEART WOODEN CHRISTMAS DECORATION", "value": 19.09090909090909, "weight": 1}, {"from": "HEART WOODEN CHRISTMAS DECORATION", "title": "19.09090909090909", "to": "COLOURING PENCILS BROWN TUBE", "value": 19.09090909090909, "weight": 1}, {"from": "HEART WOODEN CHRISTMAS DECORATION", "title": "18.900000000000002", "to": "3D VINTAGE CHRISTMAS STICKERS ", "value": 18.900000000000002, "weight": 1}, {"from": "HEART WOODEN CHRISTMAS DECORATION", "title": "18.900000000000002", "to": "PACK 3 BOXES BIRD PANETTONE ", "value": 18.900000000000002, "weight": 1}, {"from": "3D VINTAGE CHRISTMAS STICKERS ", "title": "19.09090909090909", "to": "CHRISTMAS TREE HANGING GOLD", "value": 19.09090909090909, "weight": 1}, {"from": "3D VINTAGE CHRISTMAS STICKERS ", "title": "18.900000000000002", "to": "SET/6 PINK BIRD T-LIGHT CANDLES", "value": 18.900000000000002, "weight": 1}, {"from": "3D VINTAGE CHRISTMAS STICKERS ", "title": "18.900000000000002", "to": "PACK 3 BOXES BIRD PANETTONE ", "value": 18.900000000000002, "weight": 1}, {"from": "3D VINTAGE CHRISTMAS STICKERS ", "title": "18.900000000000002", "to": "DOORSTOP FOOTBALL DESIGN", "value": 18.900000000000002, "weight": 1}, {"from": "DOORSTOP FOOTBALL DESIGN", "title": "18.900000000000002", "to": "SET/6 PINK BIRD T-LIGHT CANDLES", "value": 18.900000000000002, "weight": 1}, {"from": "DOORSTOP FOOTBALL DESIGN", "title": "18.900000000000002", "to": "SMALL CHOCOLATES PINK BOWL", "value": 18.900000000000002, "weight": 1}, {"from": "DOORSTOP FOOTBALL DESIGN", "title": "18.900000000000002", "to": "FLOWERS  STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "DOORSTOP FOOTBALL DESIGN", "title": "18.900000000000002", "to": "POLKADOT RAIN HAT ", "value": 18.900000000000002, "weight": 1}, {"from": "SMALL CHOCOLATES PINK BOWL", "title": "18.900000000000002", "to": "FLOWERS  STICKERS", "value": 18.900000000000002, "weight": 1}, {"from": "SMALL CHOCOLATES PINK BOWL", "title": "18.900000000000002", "to": "VINTAGE PAISLEY STATIONERY SET", "value": 18.900000000000002, "weight": 1}, {"from": "FLOWERS  STICKERS", "title": "18.900000000000002", "to": "VINTAGE PAISLEY STATIONERY SET", "value": 18.900000000000002, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

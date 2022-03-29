@@ -1,0 +1,204 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1000px;
+            height: 700px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "DOLLY GIRL CHILDRENS BOWL", "label": "DOLLY GIRL CHILDRENS BOWL", "shape": "dot", "size": 10}, {"id": "DOLLY GIRL CHILDRENS CUP", "label": "DOLLY GIRL CHILDRENS CUP", "shape": "dot", "size": 10}, {"id": "SPACEBOY CHILDRENS BOWL", "label": "SPACEBOY CHILDRENS BOWL", "shape": "dot", "size": 10}, {"id": "SPACEBOY CHILDRENS CUP", "label": "SPACEBOY CHILDRENS CUP", "shape": "dot", "size": 10}, {"id": "PINK VINTAGE SPOT BEAKER", "label": "PINK VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "BLUE VINTAGE SPOT BEAKER", "label": "BLUE VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "RED VINTAGE SPOT BEAKER", "label": "RED VINTAGE SPOT BEAKER", "shape": "dot", "size": 10}, {"id": "SMALL CERAMIC TOP STORAGE JAR ", "label": "SMALL CERAMIC TOP STORAGE JAR ", "shape": "dot", "size": 10}, {"id": "MEDIUM CERAMIC TOP STORAGE JAR", "label": "MEDIUM CERAMIC TOP STORAGE JAR", "shape": "dot", "size": 10}, {"id": "LARGE CERAMIC TOP STORAGE JAR", "label": "LARGE CERAMIC TOP STORAGE JAR", "shape": "dot", "size": 10}, {"id": "POPPY\u0027S PLAYHOUSE LIVINGROOM ", "label": "POPPY\u0027S PLAYHOUSE LIVINGROOM ", "shape": "dot", "size": 10}, {"id": "POPPY\u0027S PLAYHOUSE KITCHEN", "label": "POPPY\u0027S PLAYHOUSE KITCHEN", "shape": "dot", "size": 10}, {"id": "POPPY\u0027S PLAYHOUSE BEDROOM ", "label": "POPPY\u0027S PLAYHOUSE BEDROOM ", "shape": "dot", "size": 10}, {"id": "WATERING CAN PINK BUNNY", "label": "WATERING CAN PINK BUNNY", "shape": "dot", "size": 10}, {"id": "WATERING CAN BLUE ELEPHANT", "label": "WATERING CAN BLUE ELEPHANT", "shape": "dot", "size": 10}, {"id": "TREASURE ISLAND BOOK BOX", "label": "TREASURE ISLAND BOOK BOX", "shape": "dot", "size": 10}, {"id": "ABC TREASURE BOOK BOX ", "label": "ABC TREASURE BOOK BOX ", "shape": "dot", "size": 10}, {"id": "FELTCRAFT GIRL NICOLE KIT", "label": "FELTCRAFT GIRL NICOLE KIT", "shape": "dot", "size": 10}, {"id": "FELTCRAFT GIRL AMELIE KIT", "label": "FELTCRAFT GIRL AMELIE KIT", "shape": "dot", "size": 10}, {"id": "SET/6 RED SPOTTY PAPER CUPS", "label": "SET/6 RED SPOTTY PAPER CUPS", "shape": "dot", "size": 10}, {"id": "SET/6 RED SPOTTY PAPER PLATES", "label": "SET/6 RED SPOTTY PAPER PLATES", "shape": "dot", "size": 10}, {"id": "PINK FLORAL FELTCRAFT SHOULDER BAG", "label": "PINK FLORAL FELTCRAFT SHOULDER BAG", "shape": "dot", "size": 10}, {"id": "RED FLORAL FELTCRAFT SHOULDER BAG", "label": "RED FLORAL FELTCRAFT SHOULDER BAG", "shape": "dot", "size": 10}, {"id": "COFFEE MUG PEARS  DESIGN", "label": "COFFEE MUG PEARS  DESIGN", "shape": "dot", "size": 10}, {"id": "COFFEE MUG APPLES DESIGN", "label": "COFFEE MUG APPLES DESIGN", "shape": "dot", "size": 10}, {"id": "SET/10 BLUE POLKADOT PARTY CANDLES", "label": "SET/10 BLUE POLKADOT PARTY CANDLES", "shape": "dot", "size": 10}, {"id": "SET/10 PINK POLKADOT PARTY CANDLES", "label": "SET/10 PINK POLKADOT PARTY CANDLES", "shape": "dot", "size": 10}, {"id": "SET/10 RED POLKADOT PARTY CANDLES", "label": "SET/10 RED POLKADOT PARTY CANDLES", "shape": "dot", "size": 10}, {"id": "VINTAGE CREAM DOG FOOD CONTAINER", "label": "VINTAGE CREAM DOG FOOD CONTAINER", "shape": "dot", "size": 10}, {"id": "VINTAGE CREAM CAT FOOD CONTAINER", "label": "VINTAGE CREAM CAT FOOD CONTAINER", "shape": "dot", "size": 10}, {"id": "BLUE SPOT CERAMIC DRAWER KNOB", "label": "BLUE SPOT CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "RED SPOT CERAMIC DRAWER KNOB", "label": "RED SPOT CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "label": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "WHITE SPOT RED CERAMIC DRAWER KNOB", "label": "WHITE SPOT RED CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "RED STRIPE CERAMIC DRAWER KNOB", "label": "RED STRIPE CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "BLUE STRIPE CERAMIC DRAWER KNOB", "label": "BLUE STRIPE CERAMIC DRAWER KNOB", "shape": "dot", "size": 10}, {"id": "RECYCLED ACAPULCO MAT TURQUOISE", "label": "RECYCLED ACAPULCO MAT TURQUOISE", "shape": "dot", "size": 10}, {"id": "RECYCLED ACAPULCO MAT RED", "label": "RECYCLED ACAPULCO MAT RED", "shape": "dot", "size": 10}, {"id": "ROUND CAKE TIN VINTAGE GREEN", "label": "ROUND CAKE TIN VINTAGE GREEN", "shape": "dot", "size": 10}, {"id": "ROUND CAKE TIN VINTAGE RED", "label": "ROUND CAKE TIN VINTAGE RED", "shape": "dot", "size": 10}, {"id": "FELTCRAFT CUSHION RABBIT", "label": "FELTCRAFT CUSHION RABBIT", "shape": "dot", "size": 10}, {"id": "FELTCRAFT CUSHION BUTTERFLY", "label": "FELTCRAFT CUSHION BUTTERFLY", "shape": "dot", "size": 10}, {"id": "FELTCRAFT CUSHION OWL", "label": "FELTCRAFT CUSHION OWL", "shape": "dot", "size": 10}, {"id": "BLUE HAPPY BIRTHDAY BUNTING", "label": "BLUE HAPPY BIRTHDAY BUNTING", "shape": "dot", "size": 10}, {"id": "PINK HAPPY BIRTHDAY BUNTING", "label": "PINK HAPPY BIRTHDAY BUNTING", "shape": "dot", "size": 10}, {"id": "TREASURE TIN GYMKHANA DESIGN", "label": "TREASURE TIN GYMKHANA DESIGN", "shape": "dot", "size": 10}, {"id": "TREASURE TIN BUFFALO BILL ", "label": "TREASURE TIN BUFFALO BILL ", "shape": "dot", "size": 10}, {"id": "REGENCY TEA PLATE PINK", "label": "REGENCY TEA PLATE PINK", "shape": "dot", "size": 10}, {"id": "REGENCY TEA PLATE GREEN ", "label": "REGENCY TEA PLATE GREEN ", "shape": "dot", "size": 10}, {"id": "REGENCY TEA PLATE ROSES ", "label": "REGENCY TEA PLATE ROSES ", "shape": "dot", "size": 10}, {"id": "REGENCY SUGAR BOWL GREEN", "label": "REGENCY SUGAR BOWL GREEN", "shape": "dot", "size": 10}, {"id": "REGENCY MILK JUG PINK ", "label": "REGENCY MILK JUG PINK ", "shape": "dot", "size": 10}, {"id": "BLUE POLKADOT BOWL", "label": "BLUE POLKADOT BOWL", "shape": "dot", "size": 10}, {"id": "RED RETROSPOT BOWL", "label": "RED RETROSPOT BOWL", "shape": "dot", "size": 10}, {"id": "JAM JAR WITH PINK LID", "label": "JAM JAR WITH PINK LID", "shape": "dot", "size": 10}, {"id": "JAM JAR WITH GREEN LID", "label": "JAM JAR WITH GREEN LID", "shape": "dot", "size": 10}, {"id": "PINK POLKADOT WRAP ", "label": "PINK POLKADOT WRAP ", "shape": "dot", "size": 10}, {"id": "BLUE POLKADOT WRAP", "label": "BLUE POLKADOT WRAP", "shape": "dot", "size": 10}, {"id": "RED RETROSPOT WRAP ", "label": "RED RETROSPOT WRAP ", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY DOLLY GIRL ", "label": "CHILDRENS CUTLERY DOLLY GIRL ", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY SPACEBOY ", "label": "CHILDRENS CUTLERY SPACEBOY ", "shape": "dot", "size": 10}, {"id": "PACK OF 12 SUKI TISSUES ", "label": "PACK OF 12 SUKI TISSUES ", "shape": "dot", "size": 10}, {"id": "PACK OF 12 WOODLAND TISSUES ", "label": "PACK OF 12 WOODLAND TISSUES ", "shape": "dot", "size": 10}, {"id": "REGENCY TEAPOT ROSES ", "label": "REGENCY TEAPOT ROSES ", "shape": "dot", "size": 10}, {"id": "FELTCRAFT PRINCESS LOLA DOLL", "label": "FELTCRAFT PRINCESS LOLA DOLL", "shape": "dot", "size": 10}, {"id": "FELTCRAFT PRINCESS OLIVIA DOLL", "label": "FELTCRAFT PRINCESS OLIVIA DOLL", "shape": "dot", "size": 10}, {"id": "FELTCRAFT PRINCESS CHARLOTTE DOLL", "label": "FELTCRAFT PRINCESS CHARLOTTE DOLL", "shape": "dot", "size": 10}, {"id": "BATH BUILDING BLOCK WORD", "label": "BATH BUILDING BLOCK WORD", "shape": "dot", "size": 10}, {"id": "HOME BUILDING BLOCK WORD", "label": "HOME BUILDING BLOCK WORD", "shape": "dot", "size": 10}, {"id": "LOVE BUILDING BLOCK WORD", "label": "LOVE BUILDING BLOCK WORD", "shape": "dot", "size": 10}, {"id": "FELTCRAFT DOLL EMILY", "label": "FELTCRAFT DOLL EMILY", "shape": "dot", "size": 10}, {"id": "FELTCRAFT DOLL ROSIE", "label": "FELTCRAFT DOLL ROSIE", "shape": "dot", "size": 10}, {"id": "FELTCRAFT DOLL MOLLY", "label": "FELTCRAFT DOLL MOLLY", "shape": "dot", "size": 10}, {"id": "GARDENERS KNEELING PAD KEEP CALM ", "label": "GARDENERS KNEELING PAD KEEP CALM ", "shape": "dot", "size": 10}, {"id": "GARDENERS KNEELING PAD CUP OF TEA ", "label": "GARDENERS KNEELING PAD CUP OF TEA ", "shape": "dot", "size": 10}, {"id": "SET OF 6 TEA TIME BAKING CASES", "label": "SET OF 6 TEA TIME BAKING CASES", "shape": "dot", "size": 10}, {"id": "SET OF 6 SNACK LOAF BAKING CASES", "label": "SET OF 6 SNACK LOAF BAKING CASES", "shape": "dot", "size": 10}, {"id": "SET OF 12 MINI LOAF BAKING CASES", "label": "SET OF 12 MINI LOAF BAKING CASES", "shape": "dot", "size": 10}, {"id": "SET OF 12 FAIRY CAKE BAKING CASES", "label": "SET OF 12 FAIRY CAKE BAKING CASES", "shape": "dot", "size": 10}, {"id": "BOX OF 6 MINI 50\u0027S CRACKERS", "label": "BOX OF 6 MINI 50\u0027S CRACKERS", "shape": "dot", "size": 10}, {"id": "GIANT 50\u0027S CHRISTMAS CRACKER", "label": "GIANT 50\u0027S CHRISTMAS CRACKER", "shape": "dot", "size": 10}, {"id": "HAND WARMER UNION JACK", "label": "HAND WARMER UNION JACK", "shape": "dot", "size": 10}, {"id": "HAND WARMER SCOTTY DOG DESIGN", "label": "HAND WARMER SCOTTY DOG DESIGN", "shape": "dot", "size": 10}, {"id": "HAND WARMER OWL DESIGN", "label": "HAND WARMER OWL DESIGN", "shape": "dot", "size": 10}, {"id": "HAND WARMER BIRD DESIGN", "label": "HAND WARMER BIRD DESIGN", "shape": "dot", "size": 10}, {"id": "60 CAKE CASES VINTAGE CHRISTMAS", "label": "60 CAKE CASES VINTAGE CHRISTMAS", "shape": "dot", "size": 10}, {"id": "36 DOILIES VINTAGE CHRISTMAS", "label": "36 DOILIES VINTAGE CHRISTMAS", "shape": "dot", "size": 10}, {"id": "SET OF 3 BUTTERFLY COOKIE CUTTERS", "label": "SET OF 3 BUTTERFLY COOKIE CUTTERS", "shape": "dot", "size": 10}, {"id": "SET OF 3 HEART COOKIE CUTTERS", "label": "SET OF 3 HEART COOKIE CUTTERS", "shape": "dot", "size": 10}, {"id": "RED DINER WALL CLOCK", "label": "RED DINER WALL CLOCK", "shape": "dot", "size": 10}, {"id": "IVORY DINER WALL CLOCK", "label": "IVORY DINER WALL CLOCK", "shape": "dot", "size": 10}, {"id": "BLUE DINER WALL CLOCK", "label": "BLUE DINER WALL CLOCK", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY POLKADOT GREEN ", "label": "CHILDRENS CUTLERY POLKADOT GREEN ", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY RETROSPOT RED ", "label": "CHILDRENS CUTLERY RETROSPOT RED ", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY POLKADOT BLUE", "label": "CHILDRENS CUTLERY POLKADOT BLUE", "shape": "dot", "size": 10}, {"id": "CHILDRENS CUTLERY POLKADOT PINK", "label": "CHILDRENS CUTLERY POLKADOT PINK", "shape": "dot", "size": 10}, {"id": "SKULL LUNCH BOX WITH CUTLERY ", "label": "SKULL LUNCH BOX WITH CUTLERY ", "shape": "dot", "size": 10}, {"id": "LUNCH BOX WITH CUTLERY RETROSPOT ", "label": "LUNCH BOX WITH CUTLERY RETROSPOT ", "shape": "dot", "size": 10}, {"id": "STRAWBERRY LUNCH BOX WITH CUTLERY", "label": "STRAWBERRY LUNCH BOX WITH CUTLERY", "shape": "dot", "size": 10}, {"id": "PINK CREAM FELT CRAFT TRINKET BOX ", "label": "PINK CREAM FELT CRAFT TRINKET BOX ", "shape": "dot", "size": 10}, {"id": "PINK BLUE FELT CRAFT TRINKET BOX", "label": "PINK BLUE FELT CRAFT TRINKET BOX", "shape": "dot", "size": 10}, {"id": "WOODEN FRAME ANTIQUE WHITE ", "label": "WOODEN FRAME ANTIQUE WHITE ", "shape": "dot", "size": 10}, {"id": "WOODEN PICTURE FRAME WHITE FINISH", "label": "WOODEN PICTURE FRAME WHITE FINISH", "shape": "dot", "size": 10}, {"id": "MINT KITCHEN SCALES", "label": "MINT KITCHEN SCALES", "shape": "dot", "size": 10}, {"id": "IVORY KITCHEN SCALES", "label": "IVORY KITCHEN SCALES", "shape": "dot", "size": 10}, {"id": "RED KITCHEN SCALES", "label": "RED KITCHEN SCALES", "shape": "dot", "size": 10}, {"id": "CHARLOTTE BAG PINK POLKADOT", "label": "CHARLOTTE BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "RED RETROSPOT CHARLOTTE BAG", "label": "RED RETROSPOT CHARLOTTE BAG", "shape": "dot", "size": 10}, {"id": "3 STRIPEY MICE FELTCRAFT", "label": "3 STRIPEY MICE FELTCRAFT", "shape": "dot", "size": 10}, {"id": "FELTCRAFT BUTTERFLY HEARTS", "label": "FELTCRAFT BUTTERFLY HEARTS", "shape": "dot", "size": 10}, {"id": "JUMBO BAG SCANDINAVIAN BLUE PAISLEY", "label": "JUMBO BAG SCANDINAVIAN BLUE PAISLEY", "shape": "dot", "size": 10}, {"id": "JUMBO BAG PINK VINTAGE PAISLEY", "label": "JUMBO BAG PINK VINTAGE PAISLEY", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "DOLLY GIRL CHILDRENS BOWL", "title": "36.23908045977012", "to": "DOLLY GIRL CHILDRENS CUP", "value": 36.23908045977012, "weight": 1}, {"from": "DOLLY GIRL CHILDRENS BOWL", "title": "31.06206896551724", "to": "SPACEBOY CHILDRENS BOWL", "value": 31.06206896551724, "weight": 1}, {"from": "DOLLY GIRL CHILDRENS BOWL", "title": "28.549695740365113", "to": "SPACEBOY CHILDRENS CUP", "value": 28.549695740365113, "weight": 1}, {"from": "DOLLY GIRL CHILDRENS CUP", "title": "29.805882352941175", "to": "SPACEBOY CHILDRENS CUP", "value": 29.805882352941175, "weight": 1}, {"from": "DOLLY GIRL CHILDRENS CUP", "title": "28.954285714285714", "to": "SPACEBOY CHILDRENS BOWL", "value": 28.954285714285714, "weight": 1}, {"from": "PINK VINTAGE SPOT BEAKER", "title": "34.014583333333334", "to": "BLUE VINTAGE SPOT BEAKER", "value": 34.014583333333334, "weight": 1}, {"from": "PINK VINTAGE SPOT BEAKER", "title": "31.062068965517245", "to": "RED VINTAGE SPOT BEAKER", "value": 31.062068965517245, "weight": 1}, {"from": "BLUE VINTAGE SPOT BEAKER", "title": "31.54741379310345", "to": "RED VINTAGE SPOT BEAKER", "value": 31.54741379310345, "weight": 1}, {"from": "SPACEBOY CHILDRENS BOWL", "title": "27.44033613445378", "to": "SPACEBOY CHILDRENS CUP", "value": 27.44033613445378, "weight": 1}, {"from": "SMALL CERAMIC TOP STORAGE JAR ", "title": "27.926587301587304", "to": "MEDIUM CERAMIC TOP STORAGE JAR", "value": 27.926587301587304, "weight": 1}, {"from": "MEDIUM CERAMIC TOP STORAGE JAR", "title": "24.12857142857143", "to": "LARGE CERAMIC TOP STORAGE JAR", "value": 24.12857142857143, "weight": 1}, {"from": "POPPY\u0027S PLAYHOUSE LIVINGROOM ", "title": "27.598039215686274", "to": "POPPY\u0027S PLAYHOUSE KITCHEN", "value": 27.598039215686274, "weight": 1}, {"from": "POPPY\u0027S PLAYHOUSE LIVINGROOM ", "title": "26.064814814814817", "to": "POPPY\u0027S PLAYHOUSE BEDROOM ", "value": 26.064814814814817, "weight": 1}, {"from": "POPPY\u0027S PLAYHOUSE KITCHEN", "title": "25.758169934640524", "to": "POPPY\u0027S PLAYHOUSE BEDROOM ", "value": 25.758169934640524, "weight": 1}, {"from": "WATERING CAN PINK BUNNY", "title": "27.296969696969697", "to": "WATERING CAN BLUE ELEPHANT", "value": 27.296969696969697, "weight": 1}, {"from": "TREASURE ISLAND BOOK BOX", "title": "26.908088235294116", "to": "ABC TREASURE BOOK BOX ", "value": 26.908088235294116, "weight": 1}, {"from": "FELTCRAFT GIRL NICOLE KIT", "title": "25.639468690702085", "to": "FELTCRAFT GIRL AMELIE KIT", "value": 25.639468690702085, "weight": 1}, {"from": "SET/6 RED SPOTTY PAPER CUPS", "title": "25.350844277673545", "to": "SET/6 RED SPOTTY PAPER PLATES", "value": 25.350844277673545, "weight": 1}, {"from": "PINK FLORAL FELTCRAFT SHOULDER BAG", "title": "24.52462121212121", "to": "RED FLORAL FELTCRAFT SHOULDER BAG", "value": 24.52462121212121, "weight": 1}, {"from": "COFFEE MUG PEARS  DESIGN", "title": "23.893899204244033", "to": "COFFEE MUG APPLES DESIGN", "value": 23.893899204244033, "weight": 1}, {"from": "SET/10 BLUE POLKADOT PARTY CANDLES", "title": "23.875512995896035", "to": "SET/10 PINK POLKADOT PARTY CANDLES", "value": 23.875512995896035, "weight": 1}, {"from": "SET/10 BLUE POLKADOT PARTY CANDLES", "title": "16.91113892365457", "to": "SET/10 RED POLKADOT PARTY CANDLES", "value": 16.91113892365457, "weight": 1}, {"from": "SET/10 PINK POLKADOT PARTY CANDLES", "title": "17.271647699158834", "to": "SET/10 RED POLKADOT PARTY CANDLES", "value": 17.271647699158834, "weight": 1}, {"from": "VINTAGE CREAM DOG FOOD CONTAINER", "title": "23.869883040935676", "to": "VINTAGE CREAM CAT FOOD CONTAINER", "value": 23.869883040935676, "weight": 1}, {"from": "BLUE SPOT CERAMIC DRAWER KNOB", "title": "23.409563409563408", "to": "RED SPOT CERAMIC DRAWER KNOB", "value": 23.409563409563408, "weight": 1}, {"from": "BLUE SPOT CERAMIC DRAWER KNOB", "title": "19.29861568885959", "to": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "value": 19.29861568885959, "weight": 1}, {"from": "BLUE SPOT CERAMIC DRAWER KNOB", "title": "18.129959746981022", "to": "WHITE SPOT RED CERAMIC DRAWER KNOB", "value": 18.129959746981022, "weight": 1}, {"from": "BLUE SPOT CERAMIC DRAWER KNOB", "title": "17.482461184588843", "to": "RED STRIPE CERAMIC DRAWER KNOB", "value": 17.482461184588843, "weight": 1}, {"from": "BLUE SPOT CERAMIC DRAWER KNOB", "title": "15.539965497412304", "to": "BLUE STRIPE CERAMIC DRAWER KNOB", "value": 15.539965497412304, "weight": 1}, {"from": "RED SPOT CERAMIC DRAWER KNOB", "title": "17.814511729405346", "to": "WHITE SPOT RED CERAMIC DRAWER KNOB", "value": 17.814511729405346, "weight": 1}, {"from": "RED SPOT CERAMIC DRAWER KNOB", "title": "17.814511729405346", "to": "RED STRIPE CERAMIC DRAWER KNOB", "value": 17.814511729405346, "weight": 1}, {"from": "RED SPOT CERAMIC DRAWER KNOB", "title": "17.200218221494815", "to": "BLUE STRIPE CERAMIC DRAWER KNOB", "value": 17.200218221494815, "weight": 1}, {"from": "RED SPOT CERAMIC DRAWER KNOB", "title": "16.90056285178236", "to": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "value": 16.90056285178236, "weight": 1}, {"from": "RECYCLED ACAPULCO MAT TURQUOISE", "title": "22.07843137254902", "to": "RECYCLED ACAPULCO MAT RED", "value": 22.07843137254902, "weight": 1}, {"from": "ROUND CAKE TIN VINTAGE GREEN", "title": "21.44761904761905", "to": "ROUND CAKE TIN VINTAGE RED", "value": 21.44761904761905, "weight": 1}, {"from": "FELTCRAFT CUSHION RABBIT", "title": "21.447619047619046", "to": "FELTCRAFT CUSHION BUTTERFLY", "value": 21.447619047619046, "weight": 1}, {"from": "FELTCRAFT CUSHION RABBIT", "title": "18.016", "to": "FELTCRAFT CUSHION OWL", "value": 18.016, "weight": 1}, {"from": "FELTCRAFT CUSHION BUTTERFLY", "title": "15.013333333333334", "to": "FELTCRAFT CUSHION OWL", "value": 15.013333333333334, "weight": 1}, {"from": "BLUE HAPPY BIRTHDAY BUNTING", "title": "21.325757575757578", "to": "PINK HAPPY BIRTHDAY BUNTING", "value": 21.325757575757578, "weight": 1}, {"from": "TREASURE TIN GYMKHANA DESIGN", "title": "21.12265512265512", "to": "TREASURE TIN BUFFALO BILL ", "value": 21.12265512265512, "weight": 1}, {"from": "REGENCY TEA PLATE PINK", "title": "20.73240589198036", "to": "REGENCY TEA PLATE GREEN ", "value": 20.73240589198036, "weight": 1}, {"from": "REGENCY TEA PLATE PINK", "title": "18.633569739952716", "to": "REGENCY TEA PLATE ROSES ", "value": 18.633569739952716, "weight": 1}, {"from": "REGENCY TEA PLATE PINK", "title": "13.360883797054012", "to": "REGENCY SUGAR BOWL GREEN", "value": 13.360883797054012, "weight": 1}, {"from": "REGENCY TEA PLATE PINK", "title": "11.97872340425532", "to": "REGENCY MILK JUG PINK ", "value": 11.97872340425532, "weight": 1}, {"from": "REGENCY TEA PLATE GREEN ", "title": "17.643874643874646", "to": "REGENCY TEA PLATE ROSES ", "value": 17.643874643874646, "weight": 1}, {"from": "REGENCY TEA PLATE GREEN ", "title": "13.741863905325443", "to": "REGENCY SUGAR BOWL GREEN", "value": 13.741863905325443, "weight": 1}, {"from": "BLUE POLKADOT BOWL", "title": "20.273068267066765", "to": "RED RETROSPOT BOWL", "value": 20.273068267066765, "weight": 1}, {"from": "JAM JAR WITH PINK LID", "title": "19.53265306122449", "to": "JAM JAR WITH GREEN LID", "value": 19.53265306122449, "weight": 1}, {"from": "PINK POLKADOT WRAP ", "title": "19.42534205829863", "to": "BLUE POLKADOT WRAP", "value": 19.42534205829863, "weight": 1}, {"from": "PINK POLKADOT WRAP ", "title": "12.483370288248336", "to": "RED RETROSPOT WRAP ", "value": 12.483370288248336, "weight": 1}, {"from": "BLUE POLKADOT WRAP", "title": "12.483370288248336", "to": "RED RETROSPOT WRAP ", "value": 12.483370288248336, "weight": 1}, {"from": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "title": "15.776855215360662", "to": "WHITE SPOT RED CERAMIC DRAWER KNOB", "value": 15.776855215360662, "weight": 1}, {"from": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "title": "14.023871302542812", "to": "BLUE STRIPE CERAMIC DRAWER KNOB", "value": 14.023871302542812, "weight": 1}, {"from": "WHITE SPOT BLUE CERAMIC DRAWER KNOB", "title": "14.023871302542812", "to": "RED STRIPE CERAMIC DRAWER KNOB", "value": 14.023871302542812, "weight": 1}, {"from": "CHILDRENS CUTLERY DOLLY GIRL ", "title": "19.224390243902437", "to": "CHILDRENS CUTLERY SPACEBOY ", "value": 19.224390243902437, "weight": 1}, {"from": "REGENCY TEA PLATE ROSES ", "title": "12.43091168091168", "to": "REGENCY SUGAR BOWL GREEN", "value": 12.43091168091168, "weight": 1}, {"from": "PACK OF 12 SUKI TISSUES ", "title": "18.38367346938776", "to": "PACK OF 12 WOODLAND TISSUES ", "value": 18.38367346938776, "weight": 1}, {"from": "RED STRIPE CERAMIC DRAWER KNOB", "title": "18.35038478949751", "to": "BLUE STRIPE CERAMIC DRAWER KNOB", "value": 18.35038478949751, "weight": 1}, {"from": "RED STRIPE CERAMIC DRAWER KNOB", "title": "15.29198732458126", "to": "WHITE SPOT RED CERAMIC DRAWER KNOB", "value": 15.29198732458126, "weight": 1}, {"from": "BLUE STRIPE CERAMIC DRAWER KNOB", "title": "14.782254413761883", "to": "WHITE SPOT RED CERAMIC DRAWER KNOB", "value": 14.782254413761883, "weight": 1}, {"from": "REGENCY SUGAR BOWL GREEN", "title": "18.044871794871796", "to": "REGENCY MILK JUG PINK ", "value": 18.044871794871796, "weight": 1}, {"from": "REGENCY SUGAR BOWL GREEN", "title": "13.897244546498278", "to": "REGENCY TEAPOT ROSES ", "value": 13.897244546498278, "weight": 1}, {"from": "REGENCY MILK JUG PINK ", "title": "13.38253178551686", "to": "REGENCY TEAPOT ROSES ", "value": 13.38253178551686, "weight": 1}, {"from": "FELTCRAFT PRINCESS LOLA DOLL", "title": "17.593749999999996", "to": "FELTCRAFT PRINCESS OLIVIA DOLL", "value": 17.593749999999996, "weight": 1}, {"from": "FELTCRAFT PRINCESS LOLA DOLL", "title": "14.964798850574715", "to": "FELTCRAFT PRINCESS CHARLOTTE DOLL", "value": 14.964798850574715, "weight": 1}, {"from": "FELTCRAFT PRINCESS OLIVIA DOLL", "title": "16.50172413793104", "to": "FELTCRAFT PRINCESS CHARLOTTE DOLL", "value": 16.50172413793104, "weight": 1}, {"from": "BATH BUILDING BLOCK WORD", "title": "16.84970722186077", "to": "HOME BUILDING BLOCK WORD", "value": 16.84970722186077, "weight": 1}, {"from": "HOME BUILDING BLOCK WORD", "title": "12.47005742411813", "to": "LOVE BUILDING BLOCK WORD", "value": 12.47005742411813, "weight": 1}, {"from": "FELTCRAFT DOLL EMILY", "title": "16.542046605876394", "to": "FELTCRAFT DOLL ROSIE", "value": 16.542046605876394, "weight": 1}, {"from": "FELTCRAFT DOLL EMILY", "title": "14.5703933747412", "to": "FELTCRAFT DOLL MOLLY", "value": 14.5703933747412, "weight": 1}, {"from": "FELTCRAFT DOLL ROSIE", "title": "15.103607770582792", "to": "FELTCRAFT DOLL MOLLY", "value": 15.103607770582792, "weight": 1}, {"from": "GARDENERS KNEELING PAD KEEP CALM ", "title": "16.532539682539685", "to": "GARDENERS KNEELING PAD CUP OF TEA ", "value": 16.532539682539685, "weight": 1}, {"from": "SET OF 6 TEA TIME BAKING CASES", "title": "16.22681704260652", "to": "SET OF 6 SNACK LOAF BAKING CASES", "value": 16.22681704260652, "weight": 1}, {"from": "SET OF 6 TEA TIME BAKING CASES", "title": "15.41805733846812", "to": "SET OF 12 MINI LOAF BAKING CASES", "value": 15.41805733846812, "weight": 1}, {"from": "SET OF 6 TEA TIME BAKING CASES", "title": "13.418073485600793", "to": "SET OF 12 FAIRY CAKE BAKING CASES", "value": 13.418073485600793, "weight": 1}, {"from": "BOX OF 6 MINI 50\u0027S CRACKERS", "title": "15.849449204406367", "to": "GIANT 50\u0027S CHRISTMAS CRACKER", "value": 15.849449204406367, "weight": 1}, {"from": "HAND WARMER UNION JACK", "title": "15.693379790940767", "to": "HAND WARMER SCOTTY DOG DESIGN", "value": 15.693379790940767, "weight": 1}, {"from": "HAND WARMER UNION JACK", "title": "12.714543812104788", "to": "HAND WARMER OWL DESIGN", "value": 12.714543812104788, "weight": 1}, {"from": "HAND WARMER SCOTTY DOG DESIGN", "title": "15.319727891156466", "to": "HAND WARMER BIRD DESIGN", "value": 15.319727891156466, "weight": 1}, {"from": "HAND WARMER SCOTTY DOG DESIGN", "title": "14.894179894179894", "to": "HAND WARMER OWL DESIGN", "value": 14.894179894179894, "weight": 1}, {"from": "SET OF 12 MINI LOAF BAKING CASES", "title": "13.472618499769903", "to": "SET OF 12 FAIRY CAKE BAKING CASES", "value": 13.472618499769903, "weight": 1}, {"from": "HAND WARMER BIRD DESIGN", "title": "12.411816578483247", "to": "HAND WARMER OWL DESIGN", "value": 12.411816578483247, "weight": 1}, {"from": "60 CAKE CASES VINTAGE CHRISTMAS", "title": "15.216216216216216", "to": "36 DOILIES VINTAGE CHRISTMAS", "value": 15.216216216216216, "weight": 1}, {"from": "SET OF 3 BUTTERFLY COOKIE CUTTERS", "title": "14.567132867132868", "to": "SET OF 3 HEART COOKIE CUTTERS", "value": 14.567132867132868, "weight": 1}, {"from": "RED DINER WALL CLOCK", "title": "13.858461538461539", "to": "IVORY DINER WALL CLOCK", "value": 13.858461538461539, "weight": 1}, {"from": "RED DINER WALL CLOCK", "title": "13.699372056514914", "to": "BLUE DINER WALL CLOCK", "value": 13.699372056514914, "weight": 1}, {"from": "IVORY DINER WALL CLOCK", "title": "13.328163265306122", "to": "BLUE DINER WALL CLOCK", "value": 13.328163265306122, "weight": 1}, {"from": "CHILDRENS CUTLERY POLKADOT GREEN ", "title": "13.620967741935484", "to": "CHILDRENS CUTLERY RETROSPOT RED ", "value": 13.620967741935484, "weight": 1}, {"from": "CHILDRENS CUTLERY RETROSPOT RED ", "title": "11.489795918367347", "to": "CHILDRENS CUTLERY POLKADOT BLUE", "value": 11.489795918367347, "weight": 1}, {"from": "CHILDRENS CUTLERY POLKADOT BLUE", "title": "13.37618032287542", "to": "CHILDRENS CUTLERY POLKADOT PINK", "value": 13.37618032287542, "weight": 1}, {"from": "SKULL LUNCH BOX WITH CUTLERY ", "title": "13.115616911130285", "to": "LUNCH BOX WITH CUTLERY RETROSPOT ", "value": 13.115616911130285, "weight": 1}, {"from": "SKULL LUNCH BOX WITH CUTLERY ", "title": "11.67304625199362", "to": "STRAWBERRY LUNCH BOX WITH CUTLERY", "value": 11.67304625199362, "weight": 1}, {"from": "PINK CREAM FELT CRAFT TRINKET BOX ", "title": "13.046345811051696", "to": "PINK BLUE FELT CRAFT TRINKET BOX", "value": 13.046345811051696, "weight": 1}, {"from": "WOODEN FRAME ANTIQUE WHITE ", "title": "12.80401337792642", "to": "WOODEN PICTURE FRAME WHITE FINISH", "value": 12.80401337792642, "weight": 1}, {"from": "MINT KITCHEN SCALES", "title": "12.55923076923077", "to": "IVORY KITCHEN SCALES", "value": 12.55923076923077, "weight": 1}, {"from": "MINT KITCHEN SCALES", "title": "11.358771929824563", "to": "RED KITCHEN SCALES", "value": 11.358771929824563, "weight": 1}, {"from": "IVORY KITCHEN SCALES", "title": "11.85263157894737", "to": "RED KITCHEN SCALES", "value": 11.85263157894737, "weight": 1}, {"from": "CHARLOTTE BAG PINK POLKADOT", "title": "11.677561282212444", "to": "RED RETROSPOT CHARLOTTE BAG", "value": 11.677561282212444, "weight": 1}, {"from": "3 STRIPEY MICE FELTCRAFT", "title": "11.24045138888889", "to": "FELTCRAFT BUTTERFLY HEARTS", "value": 11.24045138888889, "weight": 1}, {"from": "JUMBO BAG SCANDINAVIAN BLUE PAISLEY", "title": "11.23356807511737", "to": "JUMBO BAG PINK VINTAGE PAISLEY", "value": 11.23356807511737, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "ROTATING LEAVES T-LIGHT HOLDER", "label": "ROTATING LEAVES T-LIGHT HOLDER", "shape": "dot", "size": 10}, {"id": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "label": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "shape": "dot", "size": 10}, {"id": "SMALL MARSHMALLOWS PINK BOWL", "label": "SMALL MARSHMALLOWS PINK BOWL", "shape": "dot", "size": 10}, {"id": "FEATHER PEN,HOT PINK", "label": "FEATHER PEN,HOT PINK", "shape": "dot", "size": 10}, {"id": "PINK CREAM FELT CRAFT TRINKET BOX ", "label": "PINK CREAM FELT CRAFT TRINKET BOX ", "shape": "dot", "size": 10}, {"id": "ROTATING SILVER ANGELS T-LIGHT HLDR", "label": "ROTATING SILVER ANGELS T-LIGHT HLDR", "shape": "dot", "size": 10}, {"id": "NATURAL SLATE HEART CHALKBOARD ", "label": "NATURAL SLATE HEART CHALKBOARD ", "shape": "dot", "size": 10}, {"id": "CHRISTMAS CRAFT LITTLE FRIENDS", "label": "CHRISTMAS CRAFT LITTLE FRIENDS", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "label": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "shape": "dot", "size": 10}, {"id": "BLUE HARMONICA IN BOX ", "label": "BLUE HARMONICA IN BOX ", "shape": "dot", "size": 10}, {"id": "PIZZA PLATE IN BOX", "label": "PIZZA PLATE IN BOX", "shape": "dot", "size": 10}, {"id": "TOOTHPASTE TUBE PEN", "label": "TOOTHPASTE TUBE PEN", "shape": "dot", "size": 10}, {"id": "URBAN BLACK RIBBONS ", "label": "URBAN BLACK RIBBONS ", "shape": "dot", "size": 10}, {"id": "SET OF 3 WOODEN TREE DECORATIONS", "label": "SET OF 3 WOODEN TREE DECORATIONS", "shape": "dot", "size": 10}, {"id": "SET OF 3 WOODEN SLEIGH DECORATIONS", "label": "SET OF 3 WOODEN SLEIGH DECORATIONS", "shape": "dot", "size": 10}, {"id": "6 RIBBONS SHIMMERING PINKS ", "label": "6 RIBBONS SHIMMERING PINKS ", "shape": "dot", "size": 10}, {"id": "SET OF 3 WOODEN HEART DECORATIONS", "label": "SET OF 3 WOODEN HEART DECORATIONS", "shape": "dot", "size": 10}, {"id": "PACK OF 12 HEARTS DESIGN TISSUES ", "label": "PACK OF 12 HEARTS DESIGN TISSUES ", "shape": "dot", "size": 10}, {"id": "REINDEER HEART DECORATION SILVER", "label": "REINDEER HEART DECORATION SILVER", "shape": "dot", "size": 10}, {"id": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "label": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "shape": "dot", "size": 10}, {"id": "FLORAL FOLK STATIONERY SET", "label": "FLORAL FOLK STATIONERY SET", "shape": "dot", "size": 10}, {"id": "MODERN FLORAL STATIONERY SET", "label": "MODERN FLORAL STATIONERY SET", "shape": "dot", "size": 10}, {"id": "GARDENERS KNEELING PAD KEEP CALM ", "label": "GARDENERS KNEELING PAD KEEP CALM ", "shape": "dot", "size": 10}, {"id": "SET OF 60 I LOVE LONDON CAKE CASES ", "label": "SET OF 60 I LOVE LONDON CAKE CASES ", "shape": "dot", "size": 10}, {"id": "LIPSTICK PEN BABY PINK", "label": "LIPSTICK PEN BABY PINK", "shape": "dot", "size": 10}, {"id": "METALIC LEAVES BAG CHARMS", "label": "METALIC LEAVES BAG CHARMS", "shape": "dot", "size": 10}, {"id": "PIN CUSHION BABUSHKA PINK", "label": "PIN CUSHION BABUSHKA PINK", "shape": "dot", "size": 10}, {"id": "SET OF 3 WOODEN STOCKING DECORATION", "label": "SET OF 3 WOODEN STOCKING DECORATION", "shape": "dot", "size": 10}, {"id": "WOODEN BOX OF DOMINOES", "label": "WOODEN BOX OF DOMINOES", "shape": "dot", "size": 10}, {"id": "SET OF 6 T-LIGHTS SNOWMEN", "label": "SET OF 6 T-LIGHTS SNOWMEN", "shape": "dot", "size": 10}, {"id": "SET OF 6 T-LIGHTS SANTA", "label": "SET OF 6 T-LIGHTS SANTA", "shape": "dot", "size": 10}, {"id": "TRADITIONAL WOODEN CATCH CUP GAME ", "label": "TRADITIONAL WOODEN CATCH CUP GAME ", "shape": "dot", "size": 10}, {"id": "GIRAFFE WOODEN RULER", "label": "GIRAFFE WOODEN RULER", "shape": "dot", "size": 10}, {"id": "CHRISTMAS GINGHAM TREE", "label": "CHRISTMAS GINGHAM TREE", "shape": "dot", "size": 10}, {"id": "PINK BLUE FELT CRAFT TRINKET BOX", "label": "PINK BLUE FELT CRAFT TRINKET BOX", "shape": "dot", "size": 10}, {"id": "FELTCRAFT CHRISTMAS FAIRY", "label": "FELTCRAFT CHRISTMAS FAIRY", "shape": "dot", "size": 10}, {"id": "STRAWBERRY CERAMIC TRINKET POT", "label": "STRAWBERRY CERAMIC TRINKET POT", "shape": "dot", "size": 10}, {"id": "COLOURED GLASS STAR T-LIGHT HOLDER", "label": "COLOURED GLASS STAR T-LIGHT HOLDER", "shape": "dot", "size": 10}, {"id": "PACK 3 BOXES CHRISTMAS PANETTONE", "label": "PACK 3 BOXES CHRISTMAS PANETTONE", "shape": "dot", "size": 10}, {"id": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "label": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "shape": "dot", "size": 10}, {"id": "HEART SHAPED HOLLY WREATH", "label": "HEART SHAPED HOLLY WREATH", "shape": "dot", "size": 10}, {"id": "TRADITIONAL MODELLING CLAY", "label": "TRADITIONAL MODELLING CLAY", "shape": "dot", "size": 10}, {"id": "TRADITIONAL KNITTING NANCY", "label": "TRADITIONAL KNITTING NANCY", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "16.153846153846153", "to": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "value": 16.153846153846153, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "15.0", "to": "FEATHER PEN,HOT PINK", "value": 15.0, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "13.124999999999998", "to": "PINK CREAM FELT CRAFT TRINKET BOX ", "value": 13.124999999999998, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "13.124999999999998", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 13.124999999999998, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "13.124999999999998", "to": "NATURAL SLATE HEART CHALKBOARD ", "value": 13.124999999999998, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "12.352941176470587", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 12.352941176470587, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "11.666666666666666", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 11.666666666666666, "weight": 1}, {"from": "ROTATING LEAVES T-LIGHT HOLDER", "title": "11.666666666666666", "to": "BLUE HARMONICA IN BOX ", "value": 11.666666666666666, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "15.0", "to": "FEATHER PEN,HOT PINK", "value": 15.0, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "13.125", "to": "NATURAL SLATE HEART CHALKBOARD ", "value": 13.125, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "13.125", "to": "PINK CREAM FELT CRAFT TRINKET BOX ", "value": 13.125, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "13.125", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 13.125, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "12.352941176470587", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 12.352941176470587, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "11.666666666666666", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 11.666666666666666, "weight": 1}, {"from": "SMALL DOLLY MIX DESIGN ORANGE BOWL", "title": "11.666666666666666", "to": "BLUE HARMONICA IN BOX ", "value": 11.666666666666666, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "16.153846153846153", "to": "TOOTHPASTE TUBE PEN", "value": 16.153846153846153, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "16.153846153846153", "to": "URBAN BLACK RIBBONS ", "value": 16.153846153846153, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "16.153846153846153", "to": "SET OF 3 WOODEN TREE DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "16.153846153846153", "to": "SET OF 3 WOODEN SLEIGH DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "15.0", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 15.0, "weight": 1}, {"from": "PIZZA PLATE IN BOX", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "16.153846153846153", "to": "URBAN BLACK RIBBONS ", "value": 16.153846153846153, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "16.153846153846153", "to": "SET OF 3 WOODEN TREE DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "16.153846153846153", "to": "SET OF 3 WOODEN SLEIGH DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "15.0", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 15.0, "weight": 1}, {"from": "TOOTHPASTE TUBE PEN", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "URBAN BLACK RIBBONS ", "title": "16.153846153846153", "to": "SET OF 3 WOODEN TREE DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "URBAN BLACK RIBBONS ", "title": "16.153846153846153", "to": "SET OF 3 WOODEN SLEIGH DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "URBAN BLACK RIBBONS ", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "URBAN BLACK RIBBONS ", "title": "15.0", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 15.0, "weight": 1}, {"from": "URBAN BLACK RIBBONS ", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN TREE DECORATIONS", "title": "16.153846153846153", "to": "SET OF 3 WOODEN SLEIGH DECORATIONS", "value": 16.153846153846153, "weight": 1}, {"from": "SET OF 3 WOODEN TREE DECORATIONS", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN TREE DECORATIONS", "title": "15.0", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN TREE DECORATIONS", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "PACK OF 12 HEARTS DESIGN TISSUES ", "title": "16.153846153846153", "to": "REINDEER HEART DECORATION SILVER", "value": 16.153846153846153, "weight": 1}, {"from": "PACK OF 12 HEARTS DESIGN TISSUES ", "title": "15.0", "to": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "value": 15.0, "weight": 1}, {"from": "PACK OF 12 HEARTS DESIGN TISSUES ", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "REINDEER HEART DECORATION SILVER", "title": "15.0", "to": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "value": 15.0, "weight": 1}, {"from": "REINDEER HEART DECORATION SILVER", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN SLEIGH DECORATIONS", "title": "15.0", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN SLEIGH DECORATIONS", "title": "15.0", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN SLEIGH DECORATIONS", "title": "15.0", "to": "SMALL MARSHMALLOWS PINK BOWL", "value": 15.0, "weight": 1}, {"from": "FLORAL FOLK STATIONERY SET", "title": "16.153846153846153", "to": "MODERN FLORAL STATIONERY SET", "value": 16.153846153846153, "weight": 1}, {"from": "FLORAL FOLK STATIONERY SET", "title": "15.0", "to": "GARDENERS KNEELING PAD KEEP CALM ", "value": 15.0, "weight": 1}, {"from": "FLORAL FOLK STATIONERY SET", "title": "11.666666666666666", "to": "SET OF 60 I LOVE LONDON CAKE CASES ", "value": 11.666666666666666, "weight": 1}, {"from": "MODERN FLORAL STATIONERY SET", "title": "15.0", "to": "GARDENERS KNEELING PAD KEEP CALM ", "value": 15.0, "weight": 1}, {"from": "MODERN FLORAL STATIONERY SET", "title": "11.666666666666666", "to": "SET OF 60 I LOVE LONDON CAKE CASES ", "value": 11.666666666666666, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "15.0", "to": "LIPSTICK PEN BABY PINK", "value": 15.0, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "15.0", "to": "METALIC LEAVES BAG CHARMS", "value": 15.0, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "13.928571428571429", "to": "6 RIBBONS SHIMMERING PINKS ", "value": 13.928571428571429, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "13.928571428571429", "to": "FEATHER PEN,HOT PINK", "value": 13.928571428571429, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "13.928571428571429", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 13.928571428571429, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "12.1875", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 12.1875, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "12.1875", "to": "PINK CREAM FELT CRAFT TRINKET BOX ", "value": 12.1875, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "12.1875", "to": "NATURAL SLATE HEART CHALKBOARD ", "value": 12.1875, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "11.470588235294118", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 11.470588235294118, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "10.833333333333334", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 10.833333333333334, "weight": 1}, {"from": "SMALL MARSHMALLOWS PINK BOWL", "title": "10.833333333333334", "to": "BLUE HARMONICA IN BOX ", "value": 10.833333333333334, "weight": 1}, {"from": "6 RIBBONS SHIMMERING PINKS ", "title": "13.928571428571429", "to": "SET OF 3 WOODEN HEART DECORATIONS", "value": 13.928571428571429, "weight": 1}, {"from": "6 RIBBONS SHIMMERING PINKS ", "title": "13.928571428571429", "to": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "value": 13.928571428571429, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "13.928571428571429", "to": "PIN CUSHION BABUSHKA PINK", "value": 13.928571428571429, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "13.124999999999998", "to": "NATURAL SLATE HEART CHALKBOARD ", "value": 13.124999999999998, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "12.1875", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 12.1875, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "12.1875", "to": "PINK CREAM FELT CRAFT TRINKET BOX ", "value": 12.1875, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "11.666666666666668", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 11.666666666666668, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "11.666666666666666", "to": "BLUE HARMONICA IN BOX ", "value": 11.666666666666666, "weight": 1}, {"from": "FEATHER PEN,HOT PINK", "title": "11.470588235294118", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 11.470588235294118, "weight": 1}, {"from": "SET OF 3 WOODEN HEART DECORATIONS", "title": "15.0", "to": "SET OF 3 WOODEN STOCKING DECORATION", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN HEART DECORATIONS", "title": "15.0", "to": "WOODEN BOX OF DOMINOES", "value": 15.0, "weight": 1}, {"from": "SET OF 3 WOODEN HEART DECORATIONS", "title": "10.833333333333334", "to": "SET OF 60 I LOVE LONDON CAKE CASES ", "value": 10.833333333333334, "weight": 1}, {"from": "RIBBON REEL CHRISTMAS SOCK BAUBLE", "title": "10.833333333333334", "to": "BLUE HARMONICA IN BOX ", "value": 10.833333333333334, "weight": 1}, {"from": "GARDENERS KNEELING PAD KEEP CALM ", "title": "10.833333333333334", "to": "SET OF 60 I LOVE LONDON CAKE CASES ", "value": 10.833333333333334, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SNOWMEN", "title": "15.0", "to": "SET OF 6 T-LIGHTS SANTA", "value": 15.0, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SNOWMEN", "title": "13.125", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 13.125, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SNOWMEN", "title": "12.352941176470587", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 12.352941176470587, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SNOWMEN", "title": "11.666666666666666", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 11.666666666666666, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SANTA", "title": "13.124999999999998", "to": "ROTATING SILVER ANGELS T-LIGHT HLDR", "value": 13.124999999999998, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SANTA", "title": "12.352941176470587", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 12.352941176470587, "weight": 1}, {"from": "SET OF 6 T-LIGHTS SANTA", "title": "11.666666666666668", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 11.666666666666668, "weight": 1}, {"from": "WOODEN BOX OF DOMINOES", "title": "11.666666666666666", "to": "SET OF 60 I LOVE LONDON CAKE CASES ", "value": 11.666666666666666, "weight": 1}, {"from": "PIN CUSHION BABUSHKA PINK", "title": "12.1875", "to": "NATURAL SLATE HEART CHALKBOARD ", "value": 12.1875, "weight": 1}, {"from": "PIN CUSHION BABUSHKA PINK", "title": "10.833333333333334", "to": "BLUE HARMONICA IN BOX ", "value": 10.833333333333334, "weight": 1}, {"from": "PIN CUSHION BABUSHKA PINK", "title": "10.833333333333334", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 10.833333333333334, "weight": 1}, {"from": "NATURAL SLATE HEART CHALKBOARD ", "title": "13.124999999999998", "to": "TRADITIONAL WOODEN CATCH CUP GAME ", "value": 13.124999999999998, "weight": 1}, {"from": "NATURAL SLATE HEART CHALKBOARD ", "title": "11.375", "to": "GIRAFFE WOODEN RULER", "value": 11.375, "weight": 1}, {"from": "PINK CREAM FELT CRAFT TRINKET BOX ", "title": "13.125", "to": "CHRISTMAS GINGHAM TREE", "value": 13.125, "weight": 1}, {"from": "PINK CREAM FELT CRAFT TRINKET BOX ", "title": "12.1875", "to": "PINK BLUE FELT CRAFT TRINKET BOX", "value": 12.1875, "weight": 1}, {"from": "ROTATING SILVER ANGELS T-LIGHT HLDR", "title": "12.352941176470587", "to": "CHRISTMAS CRAFT LITTLE FRIENDS", "value": 12.352941176470587, "weight": 1}, {"from": "ROTATING SILVER ANGELS T-LIGHT HLDR", "title": "10.937499999999998", "to": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "value": 10.937499999999998, "weight": 1}, {"from": "CHRISTMAS CRAFT LITTLE FRIENDS", "title": "10.705882352941176", "to": "FELTCRAFT CHRISTMAS FAIRY", "value": 10.705882352941176, "weight": 1}, {"from": "STRAWBERRY CERAMIC TRINKET POT", "title": "12.1875", "to": "COLOURED GLASS STAR T-LIGHT HOLDER", "value": 12.1875, "weight": 1}, {"from": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "title": "11.666666666666666", "to": "PACK 3 BOXES CHRISTMAS PANETTONE", "value": 11.666666666666666, "weight": 1}, {"from": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "title": "10.833333333333334", "to": "PAPER CHAIN KIT VINTAGE CHRISTMAS", "value": 10.833333333333334, "weight": 1}, {"from": "PAPER CHAIN KIT 50\u0027S CHRISTMAS ", "title": "10.833333333333334", "to": "HEART SHAPED HOLLY WREATH", "value": 10.833333333333334, "weight": 1}, {"from": "TRADITIONAL MODELLING CLAY", "title": "10.705882352941176", "to": "TRADITIONAL KNITTING NANCY", "value": 10.705882352941176, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

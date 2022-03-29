@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 700px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "ROSES REGENCY TEACUP AND SAUCER ", "label": "ROSES REGENCY TEACUP AND SAUCER ", "shape": "dot", "size": 10}, {"id": "GREEN REGENCY TEACUP AND SAUCER", "label": "GREEN REGENCY TEACUP AND SAUCER", "shape": "dot", "size": 10}, {"id": "WOODEN FRAME ANTIQUE WHITE ", "label": "WOODEN FRAME ANTIQUE WHITE ", "shape": "dot", "size": 10}, {"id": "WOODEN PICTURE FRAME WHITE FINISH", "label": "WOODEN PICTURE FRAME WHITE FINISH", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE GREEN", "label": "ALARM CLOCK BAKELIKE GREEN", "shape": "dot", "size": 10}, {"id": "ALARM CLOCK BAKELIKE RED ", "label": "ALARM CLOCK BAKELIKE RED ", "shape": "dot", "size": 10}, {"id": "JUMBO BAG VINTAGE DOILY ", "label": "JUMBO BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "JUMBO BAG VINTAGE LEAF", "label": "JUMBO BAG VINTAGE LEAF", "shape": "dot", "size": 10}, {"id": "LUNCH BAG VINTAGE DOILY ", "label": "LUNCH BAG VINTAGE DOILY ", "shape": "dot", "size": 10}, {"id": "JUMBO BAG RED RETROSPOT", "label": "JUMBO BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "JUMBO STORAGE BAG SUKI", "label": "JUMBO STORAGE BAG SUKI", "shape": "dot", "size": 10}, {"id": "JUMBO BAG PINK POLKADOT", "label": "JUMBO BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG PINK POLKADOT", "label": "LUNCH BAG PINK POLKADOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG RED RETROSPOT", "label": "LUNCH BAG RED RETROSPOT", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SPACEBOY DESIGN ", "label": "LUNCH BAG SPACEBOY DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG SUKI DESIGN ", "label": "LUNCH BAG SUKI DESIGN ", "shape": "dot", "size": 10}, {"id": "LUNCH BAG  BLACK SKULL.", "label": "LUNCH BAG  BLACK SKULL.", "shape": "dot", "size": 10}, {"id": "JUMBO BAG STRAWBERRY", "label": "JUMBO BAG STRAWBERRY", "shape": "dot", "size": 10}, {"id": "JUMBO BAG PINK VINTAGE PAISLEY", "label": "JUMBO BAG PINK VINTAGE PAISLEY", "shape": "dot", "size": 10}, {"id": "JUMBO SHOPPER VINTAGE RED PAISLEY", "label": "JUMBO SHOPPER VINTAGE RED PAISLEY", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "ROSES REGENCY TEACUP AND SAUCER ", "title": "17.464150047483383", "to": "GREEN REGENCY TEACUP AND SAUCER", "value": 17.464150047483383, "weight": 1}, {"from": "WOODEN FRAME ANTIQUE WHITE ", "title": "10.96250779905844", "to": "WOODEN PICTURE FRAME WHITE FINISH", "value": 10.96250779905844, "weight": 1}, {"from": "ALARM CLOCK BAKELIKE GREEN", "title": "10.092451621171344", "to": "ALARM CLOCK BAKELIKE RED ", "value": 10.092451621171344, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "7.901531113920495", "to": "JUMBO BAG VINTAGE LEAF", "value": 7.901531113920495, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "6.074192110330174", "to": "LUNCH BAG VINTAGE DOILY ", "value": 6.074192110330174, "weight": 1}, {"from": "JUMBO BAG VINTAGE DOILY ", "title": "4.279264071478507", "to": "JUMBO BAG RED RETROSPOT", "value": 4.279264071478507, "weight": 1}, {"from": "JUMBO BAG VINTAGE LEAF", "title": "4.367097898889806", "to": "JUMBO BAG RED RETROSPOT", "value": 4.367097898889806, "weight": 1}, {"from": "JUMBO STORAGE BAG SUKI", "title": "6.413164777680908", "to": "JUMBO BAG PINK POLKADOT", "value": 6.413164777680908, "weight": 1}, {"from": "JUMBO STORAGE BAG SUKI", "title": "5.267074155079936", "to": "JUMBO BAG RED RETROSPOT", "value": 5.267074155079936, "weight": 1}, {"from": "JUMBO BAG PINK POLKADOT", "title": "5.620877618248493", "to": "JUMBO BAG RED RETROSPOT", "value": 5.620877618248493, "weight": 1}, {"from": "LUNCH BAG PINK POLKADOT", "title": "6.334012629161883", "to": "LUNCH BAG RED RETROSPOT", "value": 6.334012629161883, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "5.948201228429365", "to": "LUNCH BAG SPACEBOY DESIGN ", "value": 5.948201228429365, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "5.823886191328052", "to": "LUNCH BAG SUKI DESIGN ", "value": 5.823886191328052, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "5.330276485080755", "to": "LUNCH BAG  BLACK SKULL.", "value": 5.330276485080755, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "5.065825706983262", "to": "LUNCH BAG VINTAGE DOILY ", "value": 5.065825706983262, "weight": 1}, {"from": "LUNCH BAG RED RETROSPOT", "title": "3.0142137246183487", "to": "JUMBO BAG RED RETROSPOT", "value": 3.0142137246183487, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "5.54571807046518", "to": "JUMBO BAG STRAWBERRY", "value": 5.54571807046518, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "5.136655434713129", "to": "JUMBO BAG PINK VINTAGE PAISLEY", "value": 5.136655434713129, "weight": 1}, {"from": "JUMBO BAG RED RETROSPOT", "title": "4.970246035274937", "to": "JUMBO SHOPPER VINTAGE RED PAISLEY", "value": 4.970246035274937, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
